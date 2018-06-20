@@ -1,3 +1,4 @@
+__author__ = 'md'
 import requests
 import os
 import zipfile
@@ -10,9 +11,11 @@ path_mst = (os.path.join( os.path.curdir, 'mst'))
 
 def get_data():
     url = 'http://bossa.pl/pub/metastock/mstock/mstall.zip'
-    print('getting...')
+    print('Getting http://bossa.pl/pub/metastock/mstock/mstall.zip...')
     req = requests.get(url)
-    print('success')
+    print('Success!')
+    if not (os.path.isdir("file")):  #check if directory exists, if not create it
+        os.mkdir("file")
     stock_file = open(os.path.join('file', os.path.basename(url)), 'wb')
     for chunk in req.iter_content(100000):
         stock_file.write(chunk)
