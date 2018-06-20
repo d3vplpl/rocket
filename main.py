@@ -7,21 +7,23 @@ import numpy
 from datetime import date
 
 CURRENT_YEAR = str(date.today().year)
-path_mst = (os.path.join( os.path.curdir, 'mst'))
+path_mst = (os.path.join(os.path.curdir, 'mst'))
 
 def get_data():
     url = 'http://bossa.pl/pub/metastock/mstock/mstall.zip'
     print('Getting http://bossa.pl/pub/metastock/mstock/mstall.zip...')
     req = requests.get(url)
     print('Success!')
-    if not (os.path.isdir("file")):  #check if directory exists, if not create it
+    # check if directory exists, if not create it
+    if not (os.path.isdir("file")):
         os.mkdir("file")
     stock_file = open(os.path.join('file', os.path.basename(url)), 'wb')
     for chunk in req.iter_content(100000):
         stock_file.write(chunk)
     stock_file.close()
     zipf = zipfile.ZipFile(os.path.join('file', os.path.basename(url)))
-    zipf.extractall((os.path.join( os.path.curdir, 'mst')))
+    zipf.extractall((os.path.join(os.path.curdir, 'mst')))
+
 
 get_data()
 
